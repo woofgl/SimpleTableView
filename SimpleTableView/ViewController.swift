@@ -32,16 +32,12 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell{
         
 //        var identifier = "cell"
-        
 //        if indexPath.row % 2 == 1{
 //            identifier = "cell2"
 //        }
-//        
 //        let cell:UITableViewCell = self.tableView.dequeueReusableCellWithIdentifier(identifier)! as UITableViewCell
-//
 //        cell.textLabel?.text = self.items[indexPath.row]
 //        cell.imageView?.image = UIImage(named: self.thumbnails[indexPath.row])
-      
         
         var nibs = NSBundle.mainBundle().loadNibNamed("SimpleTableCell", owner: self, options: nil)
         let tableCell:SimpleTableCell = nibs[0] as! SimpleTableCell
@@ -49,7 +45,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         tableCell.nameLabel.text = self.items[indexPath.row]
         tableCell.prepTimeLabel.text = "Prep Time: "
         tableCell.thumbnailImageView.image = UIImage(named: self.thumbnails[indexPath.row])
-        
         return tableCell
     }
     
@@ -60,15 +55,24 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     //event for table view
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath){
-        //        tableView.deselectRowAtIndexPath(indexPath, animated: true)
-        print("You selected cell #\(indexPath.row)!")
+//        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+
+        //show alert
+        let messageAlert = UIAlertController(title: "Row Selected", message: "You're selected #\(indexPath.row + 1) \(self.items[indexPath.row])!", preferredStyle: UIAlertControllerStyle.Alert)
+
+        let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil)
+        messageAlert.addAction(okAction)
+        
+        self.presentViewController(messageAlert, animated: true, completion: nil)
+        
+        //when click check mark this row
+        let cell : UITableViewCell! = tableView.cellForRowAtIndexPath(indexPath)
+        cell.accessoryType = UITableViewCellAccessoryType.Checkmark
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-
 }
 
