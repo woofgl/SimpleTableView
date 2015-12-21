@@ -70,6 +70,16 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         cell.accessoryType = UITableViewCellAccessoryType.Checkmark
     }
     
+    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        if editingStyle == .Delete {
+            // Delete the row from the data source
+            items.removeAtIndex(indexPath.row)
+            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade) 
+        }
+        // Request table view to reload
+        tableView.reloadData()
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
